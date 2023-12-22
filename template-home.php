@@ -14,7 +14,7 @@
           
            <div class="future-block__text">Добьёмся. Решим. Объясним.</div> 
            <div class="future-block__btn">
-            <button class="future-block__btn-link future-block__btn-link--left">Консультация адвоката</button>
+            <button class="future-block__btn-link future-block__btn-link--left btn-click">Консультация адвоката</button>
             <button class="future-block__btn-link future-block__btn-link--right">Бесплатные советы</button>
           </div>
         
@@ -754,18 +754,18 @@
               <p class="consultation-block__center-text">
                 У нас богатый опыт по защите прав и интересов взыскателя (кредитора). Обращайтесь - и мы обязательно Вам поможем взыскать задолженность
               </p>
-              <a href="#" class="consultation-block__center-link">Записаться на консультацию</a>
+              <button class="consultation-block__center-link btn-click">Записаться на консультацию</button>
             </div>
 
             <div class="consultation-block__item">
               <a href="#" class="consultation-block__item-social">
-                <img src="./images/phone-solid.svg" alt="img">
+                <img src="<?php echo get_template_directory_uri()?>/assets/images/phone-solid.svg" alt="img">
               </a>
               <a href="#" class="consultation-block__item-social">
-                <img src="./images/envelope.svg" alt="img">
+                <img src="<?php echo get_template_directory_uri()?>/assets/images/envelope.svg" alt="img">
               </a>
               <a href="#" class="consultation-block__item-social">
-                <img src="./images/whatsapp.svg" alt="img">
+                <img src="<?php echo get_template_directory_uri()?>/assets/images/whatsapp.svg" alt="img">
               </a>
             </div>
           </div>

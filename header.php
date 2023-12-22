@@ -16,35 +16,14 @@
           <img src="<?php echo get_template_directory_uri()?>/assets/images/logo.svg" alt="img">
         </a>
         <nav class="menu">
-          <ul class="menu__list">
-            <li>
-              <a href="./services.html" class="menu__list-link--active">Услуги</a>
-              <ul class="sub-menu">
-                <li><a href="#">Первая</a></li>
-                <li><a href="#">Вторая</a></li>
-                <li><a href="#">Третья</a></li>
-                <li><a href="#">Четвёртая</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="./victory.html">Победы</a>
-            </li>
-            <li>
-              <a href="./media.html">МЫ В СМИ</a>
-            </li>
-            <li>
-              <a href="#">О нас</a>
-              <ul class="sub-menu">
-                <li><a href="#">Первая</a></li>
-                <li><a href="#">Вторая</a></li>
-                <li><a href="#">Третья</a></li>
-                <li><a href="#">Четвёртая</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="./contact.html">Контакты</a>
-            </li>
-          </ul>
+         
+          <?php
+            wp_nav_menu([
+              'theme_location' => 'header-menu',
+              'menu_class' => 'menu__list',
+              'container' => ''
+            ])
+          ?>
         </nav>
 
         <div class="header__info">

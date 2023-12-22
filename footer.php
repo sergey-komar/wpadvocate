@@ -18,10 +18,14 @@
     <div class="footer-block">
         <div class="footer-block__left">
         <a href="/" class="logo">
-            <img src="./images/logo.svg" alt="img">
+            <img src="<?php the_field('logotip', 'options');?>" alt="img">
         </a>
-        <a href="tel:+78129870897" class="footer-block__left-phone">+7 (812) 987-08-97</a>
-        <a href="mailto:info@drobotov.net" class="footer-block__left-email">info@drobotov.net</a>
+        <a href="tel:<?php the_field('kontakty_v_podvale_telefon_ssylka', 'options');?>" class="footer-block__left-phone">
+            <?php the_field('kontakty_v_podvale_telefon', 'options');?>
+        </a>
+        <a href="mailto:<?php the_field('kontakty_v_podvale_pochta', 'options');?>" class="footer-block__left-email">
+            <?php the_field('kontakty_v_podvale_pochta', 'options');?>
+        </a>
         <a href="" class="footer-block__left-policy">Политика конфиденциальности</a>
         <p class="footer-block__left-text">©2023. Все права защищены</p>
         <div class="footer-block__item">
@@ -314,16 +318,33 @@
   <div class="footer__line"></div>
 
   <div class="footer__bottom">
-      <a href="#" class="footer__bottom-btn--left">Консультация адвоката</a>
+      <button class="footer__bottom-btn--left btn-click">Консультация адвоката</button>
       <a href="#top" class="footer__bottom-btn-right">Подняться наверх</a>
   </div>
   </div>
 </footer> 
   
 <div class="email-btn">
-    <a href="mailto:info@drobotov.net" class="email-btn__link">
-        <img src="./images/Button.png" alt="img">
+    <a href="mailto:<?php the_field('plavayushhaya_knopka_pochty', 'options');?>" class="email-btn__link">
+        <img src="<?php echo get_template_directory_uri()?>/assets/images/Button.png" alt="img">
     </a>
+</div>
+
+<div class="modal">
+  <div class="container">
+      <div class="modal-block">
+          <div class="modal-block__inner">
+              <div class="modal-block__inner-title">Консультация адвоката</div>
+              <p class="modal-block__inner-text">Мы свяжемся с вами в течение дня</p>
+              <div class="modal-block__form">
+                 <?php echo do_shortcode('[contact-form-7 id="d91091f" title="Модалка"]')?>
+              </div>
+          </div>
+          <div class="modal-block__close">
+              <img src="<?php echo get_template_directory_uri()?>/assets/images/close-modal.png" alt="img">
+          </div>
+      </div>
+  </div>
 </div>
 
 
