@@ -1,794 +1,102 @@
+<?php
+/**
+ * Template Name: Блог
+ */
+?>
 <?php get_header();?>
   
-  <main class="main">
+<main class="main">
+    <section class="blog">
+        <div class="container">
+            <div class="blog-box">
+                <div class="blog-box__inner">
+                    <h1 class="blog-box__title title-page">Блог</h1>
+                </div>
+                <div class="blog-menu">
+                   
+                  <ul class="blog-menu__list">
+                   <?php
+                   $terms = get_terms([
+                    'taxonomy' => 'categoreis',
+                   ]);?>
+
+                   <?php foreach($terms as $term) :?>
+                    <li class="blog-menu__list-item">
+                        <a href="<?php echo get_term_link($term);?>" class="blog-menu__list-link">
+                          <?php echo $term->name;?>
+                        </a>
+                    </li>
+                  <?php endforeach;?>
+                    
+                  </ul>
+                </div>
+            </div>
+
+            <div class="blog-block">
+                <?php
+                global $post;
+                $news = new WP_Query([
+                  'post_type' => 'blog',
+                  'posts_per_page' => 6
+                ])
+                ?>
+               <?php if($news->have_posts()) : while($news->have_posts()) : $news->the_post();?>
+                <div class="blog-block__item">
+                    <div class="blog-block__item-info">
+                        <?php the_field('nazvanie_kategorii');?>
+                    </div>
+                    <div class="blog-block__item-title">
+                       <?php the_title();?>
+                    </div>
+                    <div class="blog-block__item-date">
+                      <?php the_time('j F Y')?>
+                    </div>
+                    <div class="blog-block__item-text">
+                       <?php the_excerpt()?>
+                    </div>
+                    <a href="<?php the_permalink();?>" class="blog-block__item-btn">УЗнать больше </a>
+                </div>
+                <?php endwhile; endif;?>
+                <?php wp_reset_postdata();?>
+            </div>
+        </div>
+    </section>
   
-    <section class="future">
-      <div class="container">
-        <div class="future-block">
-           <h1 class="future-block__title title-page">Будьте спокойны за свое будущее</h1> 
-          
-           <div class="future-block__text">Добьёмся. Решим. Объясним.</div> 
-           <div class="future-block__btn">
-            <button class="future-block__btn-link future-block__btn-link--left">Консультация адвоката</button>
-            <button class="future-block__btn-link future-block__btn-link--right">Бесплатные советы</button>
-          </div>
-        
-          <div class="affairs__line">
-            <svg xmlns="http://www.w3.org/2000/svg" width="782" height="2" viewBox="0 0 782 2" fill="none">
-              <path d="M1 1L781 1.00007" stroke="url(#paint0_linear_304_1474)" stroke-width="1.5" stroke-linecap="round"/>
-              <defs>
-              <linearGradient id="paint0_linear_304_1474" x1="1" y1="1.9936" x2="781" y2="1.61502" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#818181" stop-opacity="0"/>
-              <stop offset="0.489583" stop-color="#818181"/>
-              <stop offset="1" stop-color="#818181" stop-opacity="0"/>
-              </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <div class="future-block__card">
-            <div class="future-block__item">
-              <div class="future-block__item-top">
-                <div class="future-block__item-img">
-                  <img src="./images/home/home-icon-1.svg" alt="img">
-                </div>
-                <div class="future-block__item-title">Опыт</div>
-              </div>
-              <div class="future-block__item-text">
-                Более 12 лет практики, 29 городов, все инстанции, включая Верховный суд РФ и ЕСПЧ.
-              </div>
-            </div>
-            <div class="future-block__item">
-              <div class="future-block__item-top">
-                <div class="future-block__item-img">
-                  <img src="./images/home/home-icon-2.svg" alt="img">
-                </div>
-                <div class="future-block__item-title">Честность</div>
-              </div>
-              <div class="future-block__item-text">
-                Перспектива 100% дел неоднозначна. Выбирайте: бороться или сдаться.
-              </div>
-            </div>
-            <div class="future-block__item">
-              <div class="future-block__item-top">
-                <div class="future-block__item-img">
-                  <img src="./images/home/home-icon-3.svg" alt="img">
-                </div>
-                <div class="future-block__item-title">Безопасность</div>
-              </div>
-              <div class="future-block__item-text">
-                Никакого мелкого шрифта. Оплата частями. Передумаете - вернём деньги.
-              </div>
-            </div>
-          </div> 
-        </div>
 
-         <a href="tel:88129870897" class="debts__mobile-btn btn">
-          8 (812) 987-08-97
-        </a> 
-      </div>
-    </section>
- 
-    <section class="category category-home">
-      <div class="container">
-          <h1 class="category__title title-page">Услуги</h1>
-          <div class="category-block">
-
-              <div class="category-block__item">
-                <div class="category-block__wrraper">
-                    <div class="category-block__item-icon">
-                      <img src="./images/category/category-1.svg" alt="img">
-                  </div>
-                  <div class="category-block__item-title">Долги</div>
-                </div>
-                 
-                  <ul class="category-block__list">
-                      <li class="category-block__list-item">Взыскать</li>
-                      <li class="category-block__list-item">Защититься</li>
-                      <li class="category-block__list-item">Погасить</li>
-                      <li class="category-block__list-item">Продать</li>
-                  </ul>
-              </div>
-
-              <div class="category-block__item">
-                <div class="category-block__wrraper">
-                    <div class="category-block__item-icon">
-                      <img src="./images/category/category-2.svg" alt="img">
-                  </div>
-                  <div class="category-block__item-title">Банкротство</div>
-                </div>
-                
-                  <ul class="category-block__list">
-                      <li class="category-block__list-item">Должнику</li>
-                      <li class="category-block__list-item">Физлицу</li>
-                      <li class="category-block__list-item">Кредитору</li>
-                      <li class="category-block__list-item">Дольщику</li>
-                      <li class="category-block__list-item">Директору</li>
-                      <li class="category-block__list-item">Банку</li>
-                  </ul>
-              </div>
-
-              <div class="category-block__item">
-                <div class="category-block__wrraper">
-                    <div class="category-block__item-icon">
-                      <img src="./images/category/category-3.svg" alt="img">
-                  </div>
-                  <div class="category-block__item-title">Торговля</div>
-                </div>
-                  
-                  <ul class="category-block__list">
-                      <li class="category-block__list-item">Поставщику</li>
-                      <li class="category-block__list-item">Покупателю</li>
-                      <li class="category-block__list-item">Дистрибьютору</li>
-                      <li class="category-block__list-item">Дилеру</li>
-                  </ul>
-              </div>
-
-              <div class="category-block__item">
-                <div class="category-block__wrraper">
-                    <div class="category-block__item-icon">
-                      <img src="./images/category/category-4.svg" alt="img">
-                  </div>
-                  <div class="category-block__item-title">Строительство</div>
-                </div>
-                 
-                  <ul class="category-block__list">
-                      <li class="category-block__list-item">Заказчику</li>
-                      <li class="category-block__list-item">Генподрядчику</li>
-                      <li class="category-block__list-item">Подрядчику</li>
-                      <li class="category-block__list-item">Инвестору</li>
-                      <li class="category-block__list-item">Дольщику</li>
-                  </ul>
-              </div>
-
-              <div class="category-block__item">
-                <div class="category-block__wrraper">
-                    <div class="category-block__item-icon">
-                      <img src="./images/category/category-5.svg" alt="img">
-                  </div>
-                  <div class="category-block__item-title">Перевозки</div>
-                </div>
-                
-                  <ul class="category-block__list">
-                      <li class="category-block__list-item">Отправителю</li>
-                      <li class="category-block__list-item">Перевозчику</li>
-                      <li class="category-block__list-item">Экспедитору</li>
-                      <li class="category-block__list-item">Клиенту</li>
-                  </ul>
-              </div>
-
-              <div class="category-block__item">
-                <div class="category-block__wrraper">
-                    <div class="category-block__item-icon">
-                      <img src="./images/category/category-6.svg" alt="img">
-                  </div>
-                  <div class="category-block__item-title">Аренда</div>
-                </div>
-                 
-                  <ul class="category-block__list">
-                      <li class="category-block__list-item">Арендателю</li>
-                      <li class="category-block__list-item">Арендатору</li>
-                      <li class="category-block__list-item">Субарендатору</li>
-                      <li class="category-block__list-item">Лизингодателю</li>
-                      <li class="category-block__list-item">Лизингополучателю</li>
-                  </ul>
-              </div>
-          
-              <div class="category-block__item">
-                <div class="category-block__wrraper">
-                    <div class="category-block__item-icon">
-                      <img src="./images/category/category-8.svg" alt="img">
-                  </div>
-                  <div class="category-block__item-title">Семейные дела</div>
-                </div>
-                
-                  <ul class="category-block__list">
-                      <li class="category-block__list-item">Развод</li>
-                      <li class="category-block__list-item">Раздел имущества</li>
-                      <li class="category-block__list-item">Раздел бизнеса</li>
-                      <li class="category-block__list-item">Алименты</li>
-                      <li class="category-block__list-item">Наследство</li>
-                  </ul>
-              </div>
-
-              <div class="category-block__item">
-                <div class="category-block__wrraper">
-                    <div class="category-block__item-icon">
-                      <img src="./images/category/category-9.svg" alt="img">
-                  </div>
-                  <div class="category-block__item-title">Другое</div>
-                </div>
-                 
-                  <ul class="category-block__list">
-                      <li class="category-block__list-item">Контакты</li>
-                      <li class="category-block__list-item">Победы</li>
-                      <li class="category-block__list-item">Цены</li>
-                      <li class="category-block__list-item">Сроки</li>
-                  </ul>
-              </div>
-             
-          </div>
-      </div>
-    </section>
-
-    <div class="block">
-      <div class="container">
-        <div class="footer__top">
-          <div class="footer__top-item">
-          <a href="#">Консультации</a>
-          </div>
-          <div class="footer__top-item">
-          <a href="#">Договоры</a>
-          </div>
-          <div class="footer__top-item">
-          <a href="#">Суды</a>
-          </div>
-          <div class="footer__top-item">
-          <a href="#">Обслуживание</a>
-          </div>
-        </div>
-      </div>
-    </div>
-   
-    <div class="advocate-home">
-      <div class="container">
-        <div class="advocate-block">
-          <div class="advocate-block__inner">
-              <div class="advocate-block__img">
-                  <img src="./images/advocate/advocate-img.png" alt="img">
-              </div>
-
-              <div class="advocate-block__content">
-                  <div class="advocate-block__content-subtitle">[Адвокат]</div>
-                  <h1 class="advocate-block__content-title">
-                      Дроботов Станислав Александрович
-                  </h1>
-                  <a href="#" class="advocate-block__content-blog">Блог</a>
-
-                  <div class="advocate-block__social">
-                      <a href="tel:+79522870897" class="advocate-block__social-link tel">
-                          +7 (952) 287-08 97
-                      </a>
-                      <a href="mailto:stanislav@drobotov.net" class="advocate-block__social-link email">
-                          stanislav@drobotov.net
-                      </a>
-                  </div>
-
-                  <div class="advocate-block__subtitle">[Юридическая практика с 2010 года]</div>
-                  <div class="advocate-block__info">
-                     <div class="advocate-block__info-text">
-                      Статус адвоката с 2013 года
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Дипломы специалиста и магистра права
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Член ГЭК СПбГЭУ
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Аккредитован Минюстом РФ в качестве эксперта, уполномоченного на проведение независимой антикоррупционной экспертизы нормативных правовых актов
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Гордость юридического факультета СПбГУ 13
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Член Ассоциации выпускников СПбГУ
-                     </div>
-                  </div>
-                  <div class="advocate-block__subtitle">[Представлял интересы:]</div>
-
-                  <div class="advocate-block__interest">
-                      <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-1.png" alt="img">
-                      </div>
-                      <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-2.png" alt="img">
-                      </div>
-                      <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-3.png" alt="img">
-                      </div>
-                      <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-4.png" alt="img">
-                      </div>
-                      <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-5.png" alt="img">
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      </div>
-    </div>
-
-    <!-- <div class="card">
-      <div class="achievements">
-        <div class="container">
-          <div class="achievements__title">Достижения</div>
-          <div class="affairs__line">
-            <svg xmlns="http://www.w3.org/2000/svg" width="782" height="2" viewBox="0 0 782 2" fill="none">
-              <path d="M1 1L781 1.00007" stroke="url(#paint0_linear_304_1474)" stroke-width="1.5" stroke-linecap="round"/>
-              <defs>
-              <linearGradient id="paint0_linear_304_1474" x1="1" y1="1.9936" x2="781" y2="1.61502" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#818181" stop-opacity="0"/>
-              <stop offset="0.489583" stop-color="#818181"/>
-              <stop offset="1" stop-color="#818181" stop-opacity="0"/>
-              </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-      
-          <div class="achievements-block">
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили стратегическое предприятие стоимостью более 
-                2 000 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Выиграли дело на сумму более 429 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили директора от субсидиарной ответственности на сумму более 170 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Взыскали более 12 000 000 рублей убытков с арбитражного управляющего
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили стратегическое предприятие стоимостью более 
-                2 000 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Выиграли дело на сумму более 429 000 000 рублей
-              </div>
-            </div>
-          </div>
-       
-      </div>
-
-      <div class="affairs">
-        <div class="container">
-          <div class="affairs__title">Выигранные дела</div>
-          <div class="affairs__line">
-            <svg xmlns="http://www.w3.org/2000/svg" width="782" height="2" viewBox="0 0 782 2" fill="none">
-              <path d="M1 1L781 1.00007" stroke="url(#paint0_linear_304_1474)" stroke-width="1.5" stroke-linecap="round"/>
-              <defs>
-              <linearGradient id="paint0_linear_304_1474" x1="1" y1="1.9936" x2="781" y2="1.61502" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#818181" stop-opacity="0"/>
-              <stop offset="0.489583" stop-color="#818181"/>
-              <stop offset="1" stop-color="#818181" stop-opacity="0"/>
-              </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-       
-        <div class="affairs-block">
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-16366/2014]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 994 500 руб. 00 коп., из них: 849 600 руб. 00 коп. задолженности и 144 900 руб. 00 коп. неустойки, а также 22 890 руб. 00 коп. расходов по оплате государственной пошлины и 25 000 руб. 00 коп. расходов на оплату услуг представителя.
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-22336/2013]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 537 523 руб. 40 коп. долга, 29 446 руб. 01 коп. неустойки, 25 000 руб. судебных издержек, а также 14 339 руб. 38 коп. государственной пошлины по иску.
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А40-165335/2012]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 4 102 546 руб. 81 коп. (Четыре миллиона сто две тысячи пятьсот сорок шесть рублей восемьдесят одна копейка) – задолженности, 901 620 руб. 13 коп. (Девятьсот одна тысяча шестьсот двадцать рублей тринадцать копеек) – процентов за пользование чужими денежными средствами, 13 066 руб. 
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-16366/2014]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 994 500 руб. 00 коп., из них: 849 600 руб. 00 коп. задолженности и 144 900 руб. 00 коп. неустойки, а также 22 890 руб. 00 коп. расходов по оплате государственной пошлины и 25 000 руб. 00 коп. расходов на оплату услуг представителя.
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-22336/2013]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 537 523 руб. 40 коп. долга, 29 446 руб. 01 коп. неустойки, 25 000 руб. судебных издержек, а также 14 339 руб. 38 коп. государственной пошлины по иску.
-            </div>
-          </div>
-         
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="card-box">
-          <div class="card-box__title">
-            [На сайте представлены не все успешные дела. Количество успешных дел постоянно пополняется]
-          </div>
-          <a href="#" class="card-box__btn">Смотреть больше дел</a>
-        </div>
-      </div>
-       
-    </div> -->
-
-    <div class="card">
-
-      <div class="container">
-        <div class="achievements">
-          <div class="achievements__title">Достижения</div>
-          <div class="affairs__line">
-            <svg xmlns="http://www.w3.org/2000/svg" width="782" height="2" viewBox="0 0 782 2" fill="none">
-              <path d="M1 1L781 1.00007" stroke="url(#paint0_linear_304_1474)" stroke-width="1.5" stroke-linecap="round"/>
-              <defs>
-              <linearGradient id="paint0_linear_304_1474" x1="1" y1="1.9936" x2="781" y2="1.61502" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#818181" stop-opacity="0"/>
-              <stop offset="0.489583" stop-color="#818181"/>
-              <stop offset="1" stop-color="#818181" stop-opacity="0"/>
-              </linearGradient>
-              </defs>
-            </svg>
-          </div>
-       
-      
-          <div class="achievements-block">
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили стратегическое предприятие стоимостью более 
-                2 000 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Выиграли дело на сумму более 429 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили директора от субсидиарной ответственности на сумму более 170 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Взыскали более 12 000 000 рублей убытков с арбитражного управляющего
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили стратегическое предприятие стоимостью более 
-                2 000 000 000 рублей
-              </div>
-            </div>
-    
-          </div>
-       
-      </div>
-
-      <div class="affairs">
-       
-          <div class="affairs__title">Выигранные дела</div>
-          <div class="affairs__line">
-            <svg xmlns="http://www.w3.org/2000/svg" width="782" height="2" viewBox="0 0 782 2" fill="none">
-              <path d="M1 1L781 1.00007" stroke="url(#paint0_linear_304_1474)" stroke-width="1.5" stroke-linecap="round"/>
-              <defs>
-              <linearGradient id="paint0_linear_304_1474" x1="1" y1="1.9936" x2="781" y2="1.61502" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#818181" stop-opacity="0"/>
-              <stop offset="0.489583" stop-color="#818181"/>
-              <stop offset="1" stop-color="#818181" stop-opacity="0"/>
-              </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        
-       
-        <div class="affairs-block">
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-16366/2014]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 994 500 руб. 00 коп., из них: 849 600 руб. 00 коп. задолженности и 144 900 руб. 00 коп. неустойки, а также 22 890 руб. 00 коп. расходов по оплате государственной пошлины и 25 000 руб. 00 коп. расходов на оплату услуг представителя.
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-22336/2013]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 537 523 руб. 40 коп. долга, 29 446 руб. 01 коп. неустойки, 25 000 руб. судебных издержек, а также 14 339 руб. 38 коп. государственной пошлины по иску.
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А40-165335/2012]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 4 102 546 руб. 81 коп. (Четыре миллиона сто две тысячи пятьсот сорок шесть рублей восемьдесят одна копейка) – задолженности, 901 620 руб. 13 коп. (Девятьсот одна тысяча шестьсот двадцать рублей тринадцать копеек) – процентов за пользование чужими денежными средствами, 13 066 руб. 
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-16366/2014]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 994 500 руб. 00 коп., из них: 849 600 руб. 00 коп. задолженности и 144 900 руб. 00 коп. неустойки, а также 22 890 руб. 00 коп. расходов по оплате государственной пошлины и 25 000 руб. 00 коп. расходов на оплату услуг представителя.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      
-        <div class="card-box">
-          <div class="card-box__title">
-            [На сайте представлены не все успешные дела. Количество успешных дел постоянно пополняется]
-          </div>
-          <a href="#" class="card-box__btn">Смотреть больше дел</a>
-        </div>
-      </div>
-    
-    </div>
-    
-    <div class="advocate-thanks-home">
-      <div class="container">
-        <div class="advocate-thanks">
-          <h3 class="advocate-thanks__title">Благодарности</h3>
-          <div class="advocate-thanks__tabs">
-              <div class="advocate-thanks__inner">
-                  
-                  <div class="advocate-thanks__item advocate-thanks__item--active">
-                      Совет муниципальных образований Санкт-Петербурга
-                      <div class="advocate-thanks__wrapper">
-                          <div class="advocate-thanks__item-text"> [Грамота]</div>
-                          <a href="#" class="advocate-thanks__item-link"></a>
-                      </div>
-                  </div>
-                  <div class="advocate-thanks__item">
-                      Вторая Петербургская Конференция “Бизнес-Право 20/19”
-                      <div class="advocate-thanks__wrapper">
-                          <div class="advocate-thanks__item-text">[Сертификат участника]</div>
-                          <a href="#" class="advocate-thanks__item-link"></a>
-                      </div>
-                  </div>
-                  <div class="advocate-thanks__item">
-                      КПК “ПрофСвязь”
-                      <div class="advocate-thanks__wrapper">
-                          <div class="advocate-thanks__item-text">[Благодарность]</div>
-                          <a href="#" class="advocate-thanks__item-link"></a>
-                      </div>
-                  </div>
-                  <div class="advocate-thanks__item">
-                      “Автодом” Пулково
-                      <div class="advocate-thanks__wrapper">
-                          <div class="advocate-thanks__item-text">[Благодарность]</div>
-                          <a href="#" class="advocate-thanks__item-link"></a>
-                      </div>
-                  </div>
-                  <div class="advocate-thanks__item">
-                          МО Лебяженское городское поселение
-                      <div class="advocate-thanks__wrapper">
-                          <div class="advocate-thanks__item-text">[Благодарность]</div>
-                          <a href="#" class="advocate-thanks__item-link"></a>
-                      </div>   
-                  </div>
-                  <div class="advocate-thanks__item">
-                          МО Южно-Приморский
-                      <div class="advocate-thanks__wrapper">
-                          <div class="advocate-thanks__item-text">[Благодарность]</div>
-                          <a href="#" class="advocate-thanks__item-link"></a>
-                      </div>
-                  </div>
-                  <div class="advocate-thanks__item">
-                          АО “ЛексКледере консалтинг”
-                      <div class="advocate-thanks__wrapper">
-                          <div class="advocate-thanks__item-text">[Рекомендация]</div>
-                          <a href="#" class="advocate-thanks__item-link"></a>
-                      </div>
-                  </div>
-              </div>
-             
-              <div class="advocate-thanks__content">
-                  <div class="advocate-thanks__content-img">
-                      <img src="./images/advocate/sertificate.png" alt="">
-                  </div>
-                  <div class="advocate-thanks__content-img">
-                      <img src="./images/advocate/blagodarnosti.png" alt="">
-                  </div>
-                  <div class="advocate-thanks__content-img">
-                      <img src="./images/advocate/sertificate.png" alt="">
-                  </div>
-                  <div class="advocate-thanks__content-img">
-                      <img src="./images/advocate/blagodarnosti.png" alt="">
-                  </div>
-                  <div class="advocate-thanks__content-img">
-                      <img src="./images/advocate/sertificate.png" alt="">
-                  </div>
-                  <div class="advocate-thanks__content-img">
-                      <img src="./images/advocate/blagodarnosti.png" alt="">
-                  </div>
-                  <div class="advocate-thanks__content-img">
-                      <img src="./images/advocate/sertificate.png" alt="">
-                  </div>
-              </div>
-          </div>
-      </div>
-      </div>
-    </div>
-
-    <section class="order">
-      <div class="container">
-        <h3 class="order__title title">Порядок работы</h3>
-        <div class="order__top">
-          <a href="#" class="order__top-btn">Сроки</a>
-          <a href="#" class="order__top-btn">Цены</a>
-        </div>
-
-        <div class="order-block">
-
-          <div class="order-block__item order-block__item-one">
-            <div class="order-block__item-number">1</div>
-            <div class="order-block__content">
-              <div class="order-block__wrapper">
-                <div class="order-block__content-img">
-                  <img src="./images/home/home-icon-4.svg" alt="img">
-                </div>
-                <div class="order-block__content-name">Обращение</div>
-              </div>
-             
-              <div class="order-block__content-text">
-                Познакомимся, определим задачи, варианты и сроки их решения. Если условия вас устроят - подпишем соглашение, консультация в этом случае бесплатна
-              </div>
-            </div>
-          </div>
-
-          <div class="order-block__item order-block__item-two">
-            <div class="order-block__item-number">2</div>
-            <div class="order-block__content">
-              <div class="order-block__wrapper">
-                <div class="order-block__content-img">
-                  <img src="./images/home/home-icon-5.svg" alt="img">
-                </div>
-                <div class="order-block__content-name">Работа</div>
-              </div>
-            
-              <div class="order-block__content-text">
-                Пока мы выполянем работу по делу исходя из предоставленных необходимых сведений и документов, ваше участие сводится к минимиму
-              </div>
-            </div>
-          </div>
-
-          <div class="order-block__item order-block__item-three">
-            <div class="order-block__item-number">3</div>
-            <div class="order-block__content">
-              <div class="order-block__wrapper">
-                <div class="order-block__content-img">
-                  <img src="./images/home/home-icon-6.svg" alt="img">
-                </div>
-                <div class="order-block__content-name">Результат</div>
-              </div>
-            
-              <div class="order-block__content-text">
-                После вынесения решения, мы извещаем вас о нём, разъясняем порядок его исполнения, можем принять участие в исполнительном производстве
-              </div>
-            </div>
-          </div>
-          
-          <div class="order-block__img">
-            <img src="./images/home-order.png" alt="img">
-          </div>
-        </div>
-      </div>
-    </section>
-   
-    <div class="slider">
-      <div class="container">
-        <div class="slider__title">Нам доверяют</div>
-        <div class="affairs__line">
-          <svg xmlns="http://www.w3.org/2000/svg" width="782" height="2" viewBox="0 0 782 2" fill="none">
-            <path d="M1 1L781 1.00007" stroke="url(#paint0_linear_304_1474)" stroke-width="1.5" stroke-linecap="round"/>
-            <defs>
-            <linearGradient id="paint0_linear_304_1474" x1="1" y1="1.9936" x2="781" y2="1.61502" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#818181" stop-opacity="0"/>
-            <stop offset="0.489583" stop-color="#818181"/>
-            <stop offset="1" stop-color="#818181" stop-opacity="0"/>
-            </linearGradient>
-            </defs>
-          </svg>
-        </div>
-      </div>
-        <div class="slider-top">
-          <div class="slider-top__inner">
-            <div class="slider-top__wrapper">
-              <div class="slider-top__item">
-                <img src="./images/home/slider-1.png" alt="img">
-              </div>
-            </div>
-            <div class="slider-top__wrapper">
-              <div class="slider-top__item">
-                <img src="./images/home/slider-2.png" alt="img">
-              </div>
-            </div>
-            <div class="slider-top__wrapper">
-              <div class="slider-top__item">
-                <img src="./images/home/slider-3.png" alt="img">
-              </div>
-            </div>
-            <div class="slider-top__wrapper">
-              <div class="slider-top__item">
-                <img src="./images/home/slider-4.png" alt="img">
-              </div>
-            </div>
-          </div>
-        </div>
-     
-        <div class="slider-bottom">
-          <div class="slider-bottom__inner" dir="rtl">
-            <div class="slider-bottom__wrapper">
-              <div class="slider-bottom__item">
-                <img src="./images/home/slider-4.png" alt="img">
-              </div>
-            </div>
-            <div class="slider-bottom__wrapper">
-              <div class="slider-bottom__item">
-                <img src="./images/home/slider-3.png" alt="img">
-              </div>
-            </div>
-            <div class="slider-bottom__wrapper">
-              <div class="slider-bottom__item">
-                <img src="./images/home/slider-2.png" alt="img">
-              </div>
-            </div>
-            <div class="slider-bottom__wrapper">
-              <div class="slider-bottom__item">
-                <img src="./images/home/slider-1.png" alt="img">
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
- 
     <div class="consultation">
         <div class="container">
-          <div class="consultation-block">
-            <div class="consultation-block__item"></div>
+            <div class="consultation-block">
+                <div class="consultation-block__item"></div>
 
-            <div class="consultation-block__center">
-              <div class="consultation-block__center-title">Консультация адвоката</div>
-              <p class="consultation-block__center-text">
-                У нас богатый опыт по защите прав и интересов взыскателя (кредитора). Обращайтесь - и мы обязательно Вам поможем взыскать задолженность
-              </p>
-              <a href="#" class="consultation-block__center-link">Записаться на консультацию</a>
-            </div>
+                <div class="consultation-block__center">
+                    <div class="consultation-block__center-title">Консультация адвоката</div>
+                    <p class="consultation-block__center-text">
+                    У нас богатый опыт по защите прав и интересов взыскателя (кредитора). Обращайтесь - и мы обязательно Вам поможем взыскать задолженность
+                    </p>
+                    <button class="consultation-block__center-link btn-click">Записаться на консультацию</button>
+                </div>
 
-            <div class="consultation-block__item">
-              <a href="#" class="consultation-block__item-social">
-                <img src="./images/phone-solid.svg" alt="img">
-              </a>
-              <a href="#" class="consultation-block__item-social">
-                <img src="./images/envelope.svg" alt="img">
-              </a>
-              <a href="#" class="consultation-block__item-social">
-                <img src="./images/whatsapp.svg" alt="img">
-              </a>
+                <div class="consultation-block__item">
+                <a href="tel:<?php the_field('telefon', 'options');?>" class="consultation-block__item-social">
+                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.46734 3.28125C8.89483 3.28125 8.33086 3.48633 7.86089 3.8623L7.79253 3.89648L7.75835 3.93066L4.34038 7.45117L4.37456 7.48535C3.31927 8.45947 2.99456 9.91638 3.45171 11.1768C3.45598 11.1853 3.44744 11.2024 3.45171 11.2109C4.37884 13.8641 6.75005 18.9868 11.3814 23.6182C16.0298 28.2666 21.2209 30.5438 23.7886 31.5479H23.8228C25.1515 31.9922 26.5914 31.676 27.6168 30.7959L31.0689 27.3438C31.9747 26.438 31.9747 24.8657 31.0689 23.96L26.6255 19.5166L26.5914 19.4482C25.6856 18.5425 24.0792 18.5425 23.1734 19.4482L20.9859 21.6357C20.1955 21.2555 18.3113 20.2814 16.5084 18.5596C14.7182 16.8506 13.8039 14.8853 13.4664 14.1162L15.6539 11.9287C16.5724 11.0101 16.5895 9.48059 15.6197 8.5791L15.6539 8.54492L15.5513 8.44238L11.1763 3.93066L11.1421 3.89648L11.0738 3.8623C10.6038 3.48633 10.0398 3.28125 9.46734 3.28125ZM9.46734 5.46875C9.54851 5.46875 9.62969 5.5072 9.70659 5.57129L14.0816 10.0488L14.1841 10.1514C14.1756 10.1428 14.2482 10.2582 14.1158 10.3906L11.3814 13.125L10.8687 13.6035L11.108 14.2871C11.108 14.2871 12.3641 17.6495 15.0044 20.166L15.2437 20.3711C17.7858 22.691 20.7808 23.96 20.7808 23.96L21.4644 24.2676L24.7115 21.0205C24.8995 20.8325 24.8653 20.8325 25.0533 21.0205L29.5308 25.498C29.7188 25.686 29.7188 25.6177 29.5308 25.8057L26.1812 29.1553C25.6771 29.5868 25.143 29.6765 24.5064 29.4629C22.0284 28.4888 17.2133 26.3739 12.9195 22.0801C8.59148 17.7521 6.33135 12.843 5.50249 10.459C5.33587 10.0146 5.4555 9.35669 5.84429 9.02344L5.91265 8.95508L9.22808 5.57129C9.30498 5.5072 9.38616 5.46875 9.46734 5.46875Z" fill="#D4B160"/>
+                    </svg>                  
+                </a>
+                <a href="mailto:<?php the_field('pochta', 'options');?>" class="consultation-block__item-social">
+                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.28125 8.75V28.4375H31.7188V8.75H3.28125ZM7.99805 10.9375H27.002L17.5 17.2607L7.99805 10.9375ZM5.46875 11.8945L16.8848 19.5166L17.5 19.8926L18.1152 19.5166L29.5312 11.8945V26.25H5.46875V11.8945Z" fill="#D4B160"/>
+                    </svg>                  
+                </a>
+                <a href="<?php the_field('vatczap', 'options');?>" class="consultation-block__item-social">
+                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M26.8011 8.2074C24.3317 5.73792 21.0504 4.375 17.5555 4.375C10.3522 4.375 4.48608 10.2368 4.48608 17.4402C4.48181 19.743 5.08423 21.9904 6.22925 23.9728L4.375 30.7446L11.3049 28.9246C13.2105 29.967 15.3638 30.5139 17.5513 30.5182H17.5555C24.7589 30.5182 30.6207 24.6564 30.625 17.4487C30.625 13.9581 29.2664 10.6769 26.8011 8.2074ZM17.5555 28.3093H17.5513C15.603 28.3093 13.689 27.7838 12.0227 26.7969L11.6254 26.5619L7.51099 27.6385L8.60901 23.631L8.35266 23.2208C7.26318 21.4905 6.69067 19.491 6.69067 17.4402C6.69067 11.4545 11.5656 6.58386 17.5598 6.58386C20.4608 6.58386 23.1866 7.71607 25.2374 9.76685C27.2882 11.8219 28.4161 14.5477 28.4161 17.4487C28.4161 23.4387 23.5413 28.3093 17.5555 28.3093ZM23.5114 20.1746C23.1866 20.0122 21.5802 19.2218 21.2811 19.115C20.9821 19.0039 20.7642 18.9526 20.5463 19.2773C20.3284 19.6063 19.7046 20.3412 19.5123 20.5591C19.3243 20.7727 19.1321 20.8026 18.8074 20.6403C18.4784 20.4779 17.4274 20.1318 16.1798 19.0167C15.21 18.1537 14.552 17.0813 14.364 16.7566C14.1718 16.4276 14.3427 16.2524 14.505 16.0901C14.6545 15.9448 14.834 15.7098 14.9963 15.5176C15.1587 15.3296 15.2142 15.1929 15.3253 14.975C15.4321 14.7571 15.3766 14.5648 15.2954 14.4025C15.2142 14.2401 14.5605 12.6294 14.2871 11.9757C14.0222 11.3391 13.7531 11.4288 13.5522 11.416C13.3643 11.4075 13.1464 11.4075 12.9285 11.4075C12.7106 11.4075 12.356 11.4886 12.0569 11.8176C11.7578 12.1423 10.9161 12.9327 10.9161 14.5392C10.9161 16.1456 12.0868 17.7008 12.2491 17.9187C12.4115 18.1323 14.552 21.4307 17.829 22.8448C18.6066 23.1824 19.2133 23.3832 19.6875 23.5327C20.4694 23.7805 21.1829 23.7463 21.7468 23.6652C22.3749 23.5712 23.678 22.8748 23.9514 22.11C24.2206 21.3495 24.2206 20.6958 24.1394 20.5591C24.0582 20.4224 23.8403 20.3412 23.5114 20.1746Z" fill="#D4B160"/>
+                    </svg>                  
+                </a>
+                </div>
             </div>
-          </div>
         </div>
     </div>
 
-  </main>
+</main>
   
 <?php get_footer();?>

@@ -10,9 +10,13 @@
     <section class="future">
       <div class="container">
         <div class="future-block">
-           <h1 class="future-block__title title-page">Будьте спокойны за свое будущее</h1> 
+           <h1 class="future-block__title title-page">
+           <?php the_field('glavnaya_stranicza_pervyj_blok_zagolovok');?>
+           </h1> 
           
-           <div class="future-block__text">Добьёмся. Решим. Объясним.</div> 
+           <div class="future-block__text">
+           <?php the_field('glavnaya_stranicza_pervyj_blok_podzagolovok');?>
+           </div> 
            <div class="future-block__btn">
             <button class="future-block__btn-link future-block__btn-link--left btn-click">Консультация адвоката</button>
             <button class="future-block__btn-link future-block__btn-link--right">Бесплатные советы</button>
@@ -31,39 +35,21 @@
             </svg>
           </div>
           <div class="future-block__card">
+            <?php if(have_rows('glavnaya_stranicza_pervyj_blok_kartochka')) : while(have_rows('glavnaya_stranicza_pervyj_blok_kartochka')) : the_row();?>
             <div class="future-block__item">
               <div class="future-block__item-top">
                 <div class="future-block__item-img">
-                  <img src="./images/home/home-icon-1.svg" alt="img">
+                  <img src="<?php the_sub_field('glavnaya_stranicza_pervyj_blok_kartochka_ikonka');?>" alt="img">
                 </div>
-                <div class="future-block__item-title">Опыт</div>
+                <div class="future-block__item-title">
+                <?php the_sub_field('glavnaya_stranicza_pervyj_blok_kartochka_zagolovok');?>
+                </div>
               </div>
               <div class="future-block__item-text">
-                Более 12 лет практики, 29 городов, все инстанции, включая Верховный суд РФ и ЕСПЧ.
+              <?php the_sub_field('glavnaya_stranicza_pervyj_blok_kartochka_tekst');?>
               </div>
             </div>
-            <div class="future-block__item">
-              <div class="future-block__item-top">
-                <div class="future-block__item-img">
-                  <img src="./images/home/home-icon-2.svg" alt="img">
-                </div>
-                <div class="future-block__item-title">Честность</div>
-              </div>
-              <div class="future-block__item-text">
-                Перспектива 100% дел неоднозначна. Выбирайте: бороться или сдаться.
-              </div>
-            </div>
-            <div class="future-block__item">
-              <div class="future-block__item-top">
-                <div class="future-block__item-img">
-                  <img src="./images/home/home-icon-3.svg" alt="img">
-                </div>
-                <div class="future-block__item-title">Безопасность</div>
-              </div>
-              <div class="future-block__item-text">
-                Никакого мелкого шрифта. Оплата частями. Передумаете - вернём деньги.
-              </div>
-            </div>
+           <?php endwhile; endif;?>
           </div> 
         </div>
 
@@ -81,7 +67,8 @@
                 'taxonomy' => 'category',
                 'orderby' => 'id',// здесь по какому полю сортировать
                 'hide_empty' => false,// скрывать категории без записей или нет
-                'parent' => 0 //id родительской категории
+                'parent' => 0, //id родительской категории
+                'number' => 8
             ])
           ?>
           <div class="category-block">
@@ -101,12 +88,13 @@
                   </a>
                 </div>
               
+
                   <ul class="category-block__list">
                       <?php
                       global $post;
                       $articles = new WP_Query([
                           'post_type' => 'post',
-                          'posts_per_page' => '5',
+                          'posts_per_page' => 6,
                           'cat' => $servis_term->term_taxonomy_id
                       ])
                       
@@ -123,292 +111,77 @@
           </div>
       </div>
     </section>
-
- 
-    
-    <section class="category category-home">
-        <div class="container">
-            <h1 class="category__title title-page">Услуги</h1>
-           
-                <?php 
-                $arg_category = array(
-                'orderby'      => 'name',
-                'order'        => 'ASC',
-                'hide_empty'   => 1,
-                'exclude'      => '',
-                'include'      => '',
-                'taxonomy'     => 'category',
-                );
-                $categories = get_categories( $arg_category );
-                ?>
-            <div class="category-block">
-                <?php 
-                    if( $categories ){
-                        foreach( $categories as $cat ){
-                            
-                        $arg_posts =  array(
-                            'orderby'      => 'name',
-                            'order'        => 'ASC',
-                            'posts_per_page' => 3,
-                            'post_type' => 'post',
-                            'post_status' => 'publish',
-                            'cat' => $cat->cat_ID,
-                        
-                        );
-                        $query = new WP_Query($arg_posts);
-                        $category_image = get_field('izobrazhenie_rubriki', $cat)
-                        ?>
-                   
-                        <?php if ($query->have_posts()) : ?>
-                            <div class="category-block__item">
-                                <div class="category-block__wrraper">
-                                    <div class="category-block__item-icon">
-                                    <img src="<?php echo $category_image?>" alt="img">
-                                    </div>
-                                    <a href="" class="category-block__item-title">
-                                    <?php echo $cat->name; ?>
-                                    </a>
-                                </div>
-                            <?php while ($query->have_posts()) : $query->the_post(); ?>
-                                <div class="category-block__list">
-                                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                </div>   
-                            <?php endwhile; endif; wp_reset_postdata(); ?>
-                            </div>
-                            <?php 
-                            
-                                }
-                            }
-                            
-                        ?>
-                    
-            </div>
-              
-            </div>
-    </section> 
-
-               
-                                 
-                  
-
-  
    
     <div class="block">
       <div class="container">
         <div class="footer__top">
+          <?php
+            $activity_services = new WP_Query([
+              'post_type' => 'activity',
+              'posts_per_page' => 6
+            ])
+          ?>
+          <?php if($activity_services->have_posts()) : while($activity_services->have_posts()) : $activity_services->the_post();?>
           <div class="footer__top-item">
-          <a href="#">Консультации</a>
+            <a href="<?php the_permalink();?>">
+             <?php the_title();?>
+            </a>
           </div>
-          <div class="footer__top-item">
-          <a href="#">Договоры</a>
-          </div>
-          <div class="footer__top-item">
-          <a href="#">Суды</a>
-          </div>
-          <div class="footer__top-item">
-          <a href="#">Обслуживание</a>
-          </div>
+         <?php endwhile; endif;?>
+         <?php wp_reset_postdata();?>
         </div>
       </div>
     </div>
    
-    <div class="advocate-home">
-      <div class="container">
-        <div class="advocate-block">
+  <div class="advocate-home">
+    <div class="container">
+      <div class="advocate-block">
           <div class="advocate-block__inner">
               <div class="advocate-block__img">
-                  <img src="./images/advocate/advocate-img.png" alt="img">
+                  <img src="<?php the_field('glavnaya_advokat_izobrazhenie');?>" alt="img">
               </div>
 
               <div class="advocate-block__content">
                   <div class="advocate-block__content-subtitle">[Адвокат]</div>
                   <h1 class="advocate-block__content-title">
-                      Дроботов Станислав Александрович
+                      <?php the_field('glavnaya_advokat_zagolovok');?>
                   </h1>
-                  <a href="#" class="advocate-block__content-blog">Блог</a>
-
-                  <div class="advocate-block__social">
-                      <a href="tel:+79522870897" class="advocate-block__social-link tel">
-                          +7 (952) 287-08 97
-                      </a>
-                      <a href="mailto:stanislav@drobotov.net" class="advocate-block__social-link email">
-                          stanislav@drobotov.net
-                      </a>
+                  <div class="advocate-block__content-text--home">
+                  <?php the_field('glavnaya_advokat_tekst');?>
                   </div>
+                  <a href=" <?php the_field('advokat_blog');?>" class="advocate-block__content-blog">Блог</a>
 
-                  <div class="advocate-block__subtitle">[Юридическая практика с 2010 года]</div>
+                
+
+                  <div class="advocate-block__subtitle">
+                      <?php the_field('glavnaya_advokat_podzagolovok');?>
+                  </div>
                   <div class="advocate-block__info">
-                     <div class="advocate-block__info-text">
-                      Статус адвоката с 2013 года
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Дипломы специалиста и магистра права
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Член ГЭК СПбГЭУ
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Аккредитован Минюстом РФ в качестве эксперта, уполномоченного на проведение независимой антикоррупционной экспертизы нормативных правовых актов
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Гордость юридического факультета СПбГУ 13
-                     </div>
-                     <div class="advocate-block__info-text">
-                      Член Ассоциации выпускников СПбГУ
-                     </div>
+                      <?php if(have_rows('glavnaya_advokat_spisok')) : while(have_rows('glavnaya_advokat_spisok')) : the_row();?>
+                      <div class="advocate-block__info-text">
+                      <?php the_sub_field('glavnaya_advokat_spisok_tekst');?>
+                      </div>
+                      <?php endwhile; endif;?>
                   </div>
-                  <div class="advocate-block__subtitle">[Представлял интересы:]</div>
+
+
+                  <div class="advocate-block__subtitle">
+                  <?php the_field('glavnaya_advokat_interesy');?>
+                  </div>
 
                   <div class="advocate-block__interest">
+                      <?php if(have_rows('glavnaya_advokat_interesy_spisok')) : while(have_rows('glavnaya_advokat_interesy_spisok')) : the_row();?>
                       <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-1.png" alt="img">
+                          <img src="<?php the_sub_field('glavnaya_advokat_interesy_kartinka');?>" alt="img">
                       </div>
-                      <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-2.png" alt="img">
-                      </div>
-                      <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-3.png" alt="img">
-                      </div>
-                      <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-4.png" alt="img">
-                      </div>
-                      <div class="advocate-block__interest-item">
-                          <img src="./images/advocate/interests-5.png" alt="img">
-                      </div>
+                      <?php endwhile; endif;?>
                   </div>
               </div>
           </div>
       </div>
-      </div>
     </div>
-
-    <!-- <div class="card">
-      <div class="achievements">
-        <div class="container">
-          <div class="achievements__title">Достижения</div>
-          <div class="affairs__line">
-            <svg xmlns="http://www.w3.org/2000/svg" width="782" height="2" viewBox="0 0 782 2" fill="none">
-              <path d="M1 1L781 1.00007" stroke="url(#paint0_linear_304_1474)" stroke-width="1.5" stroke-linecap="round"/>
-              <defs>
-              <linearGradient id="paint0_linear_304_1474" x1="1" y1="1.9936" x2="781" y2="1.61502" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#818181" stop-opacity="0"/>
-              <stop offset="0.489583" stop-color="#818181"/>
-              <stop offset="1" stop-color="#818181" stop-opacity="0"/>
-              </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-      
-          <div class="achievements-block">
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили стратегическое предприятие стоимостью более 
-                2 000 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Выиграли дело на сумму более 429 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили директора от субсидиарной ответственности на сумму более 170 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Взыскали более 12 000 000 рублей убытков с арбитражного управляющего
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили стратегическое предприятие стоимостью более 
-                2 000 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Выиграли дело на сумму более 429 000 000 рублей
-              </div>
-            </div>
-          </div>
-       
-      </div>
-
-      <div class="affairs">
-        <div class="container">
-          <div class="affairs__title">Выигранные дела</div>
-          <div class="affairs__line">
-            <svg xmlns="http://www.w3.org/2000/svg" width="782" height="2" viewBox="0 0 782 2" fill="none">
-              <path d="M1 1L781 1.00007" stroke="url(#paint0_linear_304_1474)" stroke-width="1.5" stroke-linecap="round"/>
-              <defs>
-              <linearGradient id="paint0_linear_304_1474" x1="1" y1="1.9936" x2="781" y2="1.61502" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#818181" stop-opacity="0"/>
-              <stop offset="0.489583" stop-color="#818181"/>
-              <stop offset="1" stop-color="#818181" stop-opacity="0"/>
-              </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-       
-        <div class="affairs-block">
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-16366/2014]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 994 500 руб. 00 коп., из них: 849 600 руб. 00 коп. задолженности и 144 900 руб. 00 коп. неустойки, а также 22 890 руб. 00 коп. расходов по оплате государственной пошлины и 25 000 руб. 00 коп. расходов на оплату услуг представителя.
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-22336/2013]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 537 523 руб. 40 коп. долга, 29 446 руб. 01 коп. неустойки, 25 000 руб. судебных издержек, а также 14 339 руб. 38 коп. государственной пошлины по иску.
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А40-165335/2012]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 4 102 546 руб. 81 коп. (Четыре миллиона сто две тысячи пятьсот сорок шесть рублей восемьдесят одна копейка) – задолженности, 901 620 руб. 13 коп. (Девятьсот одна тысяча шестьсот двадцать рублей тринадцать копеек) – процентов за пользование чужими денежными средствами, 13 066 руб. 
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-16366/2014]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 994 500 руб. 00 коп., из них: 849 600 руб. 00 коп. задолженности и 144 900 руб. 00 коп. неустойки, а также 22 890 руб. 00 коп. расходов по оплате государственной пошлины и 25 000 руб. 00 коп. расходов на оплату услуг представителя.
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-22336/2013]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 537 523 руб. 40 коп. долга, 29 446 руб. 01 коп. неустойки, 25 000 руб. судебных издержек, а также 14 339 руб. 38 коп. государственной пошлины по иску.
-            </div>
-          </div>
-         
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="card-box">
-          <div class="card-box__title">
-            [На сайте представлены не все успешные дела. Количество успешных дел постоянно пополняется]
-          </div>
-          <a href="#" class="card-box__btn">Смотреть больше дел</a>
-        </div>
-      </div>
-       
-    </div> -->
+  </div>
+   
 
     <div class="card">
 
@@ -430,34 +203,13 @@
        
       
           <div class="achievements-block">
+            <?php if(have_rows('glavnaya_dostizheniya_spisok')) : while(have_rows('glavnaya_dostizheniya_spisok')) : the_row();?>
             <div class="achievements-block__item">
               <div class="achievements-block__item-text">
-                Защитили стратегическое предприятие стоимостью более 
-                2 000 000 000 рублей
+              <?php the_sub_field('glavnaya_dostizheniya_spisok_tekst');?>
               </div>
             </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Выиграли дело на сумму более 429 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили директора от субсидиарной ответственности на сумму более 170 000 000 рублей
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Взыскали более 12 000 000 рублей убытков с арбитражного управляющего
-              </div>
-            </div>
-            <div class="achievements-block__item">
-              <div class="achievements-block__item-text">
-                Защитили стратегическое предприятие стоимостью более 
-                2 000 000 000 рублей
-              </div>
-            </div>
-    
+            <?php endwhile; endif;?>
           </div>
        
       </div>
@@ -480,38 +232,16 @@
         
        
         <div class="affairs-block">
+          <?php if(have_rows('vyigrannye_dela_spisok')) : while(have_rows('vyigrannye_dela_spisok')) : the_row();?>
           <div class="affairs-block__item">
             <div class="affairs-block__item-title">
-              [Дело № А56-16366/2014]
+            <?php the_sub_field('vyigrannye_dela_spisok_zagolovok');?>
             </div>
             <div class="affairs-block__item-text">
-              Взыскано 994 500 руб. 00 коп., из них: 849 600 руб. 00 коп. задолженности и 144 900 руб. 00 коп. неустойки, а также 22 890 руб. 00 коп. расходов по оплате государственной пошлины и 25 000 руб. 00 коп. расходов на оплату услуг представителя.
+            <?php the_sub_field('vyigrannye_dela_spisok_tekst');?>
             </div>
           </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-22336/2013]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 537 523 руб. 40 коп. долга, 29 446 руб. 01 коп. неустойки, 25 000 руб. судебных издержек, а также 14 339 руб. 38 коп. государственной пошлины по иску.
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А40-165335/2012]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 4 102 546 руб. 81 коп. (Четыре миллиона сто две тысячи пятьсот сорок шесть рублей восемьдесят одна копейка) – задолженности, 901 620 руб. 13 коп. (Девятьсот одна тысяча шестьсот двадцать рублей тринадцать копеек) – процентов за пользование чужими денежными средствами, 13 066 руб. 
-            </div>
-          </div>
-          <div class="affairs-block__item">
-            <div class="affairs-block__item-title">
-              [Дело № А56-16366/2014]
-            </div>
-            <div class="affairs-block__item-text">
-              Взыскано 994 500 руб. 00 коп., из них: 849 600 руб. 00 коп. задолженности и 144 900 руб. 00 коп. неустойки, а также 22 890 руб. 00 коп. расходов по оплате государственной пошлины и 25 000 руб. 00 коп. расходов на оплату услуг представителя.
-            </div>
-          </div>
+          <?php endwhile; endif;?>
         </div>
       </div>
 

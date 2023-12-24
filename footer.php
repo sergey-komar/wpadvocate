@@ -1,18 +1,19 @@
 <footer class="footer">
   <div class="container">
     <div class="footer__top">
-        <div class="footer__top-item">
-        <a href="#">Консультации</a>
-        </div>
-        <div class="footer__top-item">
-        <a href="#">Договоры</a>
-        </div>
-        <div class="footer__top-item">
-        <a href="#">Суды</a>
-        </div>
-        <div class="footer__top-item">
-        <a href="#">Обслуживание</a>
-        </div>
+        <?php
+            $activity_services = new WP_Query([
+              'post_type' => 'activity',
+              'posts_per_page' => 6
+            ])
+          ?>
+          <?php if($activity_services->have_posts()) : while($activity_services->have_posts()) : $activity_services->the_post();?>
+          <div class="footer__top-item">
+            <a href="<?php the_permalink();?>">
+             <?php the_title();?>
+            </a>
+          </div>
+         <?php endwhile; endif;?>
     </div>
 
     <div class="footer-block">
