@@ -1,94 +1,34 @@
 <?php
 /**
- * Template Name: Цены
+ * Template Name: Реквизиты
  */
 ?>
 <?php get_header();?>
 <main class="main">
-    <section class="price">
+    <section class="requisites">
         <div class="container">
-            <h1 class="price__title title-page">Цены</h1>
-            <div class="price-block">
-                <div class="price-block__img">
-                    <img src="<?php the_field('sostavlyayushhie_kartinka');?>" alt="img">
-                </div>
-                <div class="price-block__content">
-                    <div class="price-block__content-text">
-                    <?php the_field('sostavlyayushhie_tekst');?>
-                    </div>
-                    <div class="price-block__content-info">
-                    <?php the_field('sostavlyayushhie_podzagolovo');?>
-                    </div>
-                    <div class="price-block__content-title">
-                    <?php the_field('sostavlyayushhie_zagolovok');?>
-                    </div>
-
-                    <div class="price-block__inner">
-                        <?php if(have_rows('sostavlyayushhie_spisok')) : while(have_rows('sostavlyayushhie_spisok')) : the_row();?>
-                        <div class="price-block__inner-item">
-                        <?php the_sub_field('sostavlyayushhie_spisok_tekst');?>
+            <div class="requisites__inner" style="background: url('<?php the_field('rekvizity_izobrazhenie');?>') no-repeat;">
+                <div class="requisites-block">
+                    <h1 class="requisites__title title-page">
+                    <?php the_field('rekvizity_zagolovok');?>
+                    </h1>
+                    <div class="requisites-block__content">
+                        <?php if(have_rows('rekvizity_spisok')) : while(have_rows('rekvizity_spisok')) : the_row();?>
+                        <div class="requisites-block__item">
+                            <span class="requisites-block__item-name">
+                            <?php the_sub_field('rekvizity_spisok_zagolovok');?>
+                            </span>
+                            <p class="requisites-block__item-text">
+                            <?php the_sub_field('rekvizity_spisok_informacziya');?>
+                            </p>
                         </div>
                         <?php endwhile; endif;?>
                     </div>
                 </div>
             </div>
-
-          <div class="price__subtitle">
-          <?php the_field('primernye_zagolovok');?>
-          </div>
-            <div class="price-box">
-                <?php if(have_rows('primernye_spisok')) : while(have_rows('primernye_spisok')) : the_row();?>
-                <div class="price-box__item">
-                    <div class="price-box__item-text">
-                    <?php the_sub_field('primernye_spisok_tekst');?>
-                    </div>
-                    <div class="price-box__wrapper">
-                        <div class="price-box__item-text">
-                        <?php the_sub_field('primernye_spisok_czena');?>
-                        </div>
-                        <div class="price-box__item-text">
-                        <?php the_sub_field('primernye_spisok_vremya');?>
-                        </div>
-                    </div>
-                    
-                </div>
-                <?php endwhile; endif;?>
-            </div>
-   
-            <div class="price__subtitle">
-            <?php the_field('unikalnye_zagolovok');?>
-            </div>
-            <div class="price__services">
-                <?php if(have_rows('unikalnye_spisok')) : while(have_rows('unikalnye_spisok')) : the_row();?>
-                <div class="price-box__item">
-                    <div class="price-box__item-text">
-                    <?php the_sub_field('unikalnye_spisok_tekst');?>
-                    </div>
-                    <div class="price-box__wrapper">
-                        <div class="price-box__item-text">
-                        <?php the_sub_field('unikalnye_spisok_czena');?>
-                        </div>
-                        <div class="price-box__item-text">
-                        <?php the_sub_field('unikalnye_spisok_vremya');?>
-                        </div>
-                    </div>
-                </div>
-                <?php endwhile; endif;?>
-            </div>
-          
-            <div class="price-info">
-                <div class="price-info__title">
-                <?php the_field('dopolnitelno_zagolovok');?>
-                </div>
-                <?php if(have_rows('dopolnitelno_spisok')) : while(have_rows('dopolnitelno_spisok')) : the_row();?>
-                <div class="price-info__text">
-                <?php the_sub_field('dopolnitelno_tekst');?>
-                </div>
-                <?php endwhile; endif;?>
-            </div> 
+           
         </div>
     </section>
-  
 
     <div class="consultation">
         <div class="container">
@@ -125,4 +65,5 @@
     </div>
 
 </main>
+  
 <?php get_footer();?>

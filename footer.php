@@ -30,26 +30,14 @@
         <p class="footer-block__left-text">©2023. Все права защищены</p>
         <div class="footer-block__item">
             <div class="footer-block__item-title">Полезные ссылки</div>
-            <ul class="footer-block__list">
-            <li class="footer-block__list-item">
-                <a href="" class="footer-block__list-link">Контакты</a>
-            </li>
-            <li class="footer-block__list-item">
-                <a href="" class="footer-block__list-link">Победы</a>
-            </li>
-            <li class="footer-block__list-item">
-                <a href="" class="footer-block__list-link">Компания</a>
-            </li>
-            <li class="footer-block__list-item">
-                <a href="" class="footer-block__list-link">Цены</a>
-            </li>
-            <li class="footer-block__list-item">
-                <a href="" class="footer-block__list-link">Сроки</a>
-            </li>
-            <li class="footer-block__list-item">
-                <a href="" class="footer-block__list-link">Все услуги</a>
-            </li>
-            </ul>
+            <?php
+                wp_nav_menu([
+                    'theme_location' => 'footer-menu',
+                    'menu_class' => 'footer-block__list',
+                    'container' => ''
+                ])
+            ?>
+           
         </div>
         </div>
 
