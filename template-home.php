@@ -73,6 +73,7 @@
           ?>
           <div class="category-block">
         
+
             <?php foreach( $services_terms as $servis_term) :?>
               <div class="category-block__item">
                 <div class="category-block__wrraper">

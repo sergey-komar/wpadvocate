@@ -106,6 +106,7 @@ function my_custom_init(){
     ]); 
 	
 	
+	
     register_post_type('activity', array(
 		'labels'             => array(
 			'name'               => __('Деятельность'), // Основное название типа записи
